@@ -1,0 +1,60 @@
+.data
+num: .asciiz "Digite o numero "
+doisPontos: .asciiz ": "
+nextLine: .asciiz "\n"
+soma: .asciiz "A soma dos numeros impares foi de: "
+
+.text
+li $t0,0 #t0 = 0
+li $t1,10 # t1 = 10
+li $t7,0 # t7 = 10
+
+loop: 
+	beq $t0, $t1, sai #se for o fim do loop termina o programa
+	
+	li $v0, 4
+	la $a0, num
+	syscall #print inicio da frase
+	
+	li $v0, 1
+	move $a0, $t0
+	add $a0, $a0, 1
+	syscall #print ordem do i
+	
+	li $v0, 4
+	la $a0, doisPontos
+	syscall #coloca dois pontos
+	
+	li $t5, 0 #zera t5 para nao somar
+	
+	li $v0, 5 #le int
+	syscall
+	
+	add $t5, $t5, $v0 #move do v0 pro t5
+	
+	
+	add $t0, $t0, 1 # t0 = t0 + 1
+	
+	li $t8, 2 #atribui 2 para t8
+	div $t5, $t8 #divide o numero por 2
+	mfhi $t6 #checa o modulo
+	bne $t6,0,odd #se for diferente de 0, eh impar
+	outOdd:
+
+
+	j loop #volta pro inicio do loop
+sai: 
+	li $v0, 4 
+	la $a0, soma
+	syscall #texto de soma
+	
+	li $v0, 1
+	move $a0, $t7
+	syscall #print numero
+
+	li $v0, 10 #return 0
+	syscall
+	
+odd:
+	add $t7, $t5, $t7
+	j outOdd
