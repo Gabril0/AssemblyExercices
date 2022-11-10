@@ -10,7 +10,7 @@
 	li $v0, 5 #ler int
 	syscall
 	
-	move $t0,$v0 #move do "ponteiro" para o registrador temporario que sera feita a aritmetrica
+	move $t0,$v0 #move do "ponteiro" para o registrador temporario que seja feita a aritmetica
 	
 	li $v0, 5 #ler int 2
 	syscall
